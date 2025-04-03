@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Продавцы</title>
+    <link rel="stylesheet" href="styles/index.css">
+    <!-- Подключаем Chart.js перед нашими скриптами -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div class="sellers-container">
+        <!-- Карточка продавца -->
+        <div class="seller-card">
+            <div class="seller-info">
+                <h2 class="seller-name">Имя продавца</h2>
+                <div class="seller-stats">
+                    <div class="stat-item">
+                        <span class="stat-label">Продажи</span>
+                        <span class="stat-value">150</span>
+                    </div>
+                    <!-- Другие статистики -->
+                </div>
+            </div>
+            
+            <!-- График -->
+            <div class="chart-container">
+                <canvas id="salesChart"></canvas>
+            </div>
+            
+            <!-- Отзывы -->
+            <div class="reviews-section">
+                <!-- Отзывы будут добавляться через JavaScript -->
+            </div>
+        </div>
+    </div>
+
+    <script src="js/components/reviews.js"></script>
+    <script src="js/components/statistics.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html> 
