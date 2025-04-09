@@ -1,0 +1,952 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Панель управления - CryptoExchange</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.0.3/src/regular/style.css">
+    <link rel="stylesheet" href="css/main.css">
+</head>
+<body>
+    <div class="admin-container">
+        <aside class="admin-sidebar glass-effect">
+            <div class="admin-header">
+                <i class="ph ph-shield"></i>
+                <h1>CryptoExchange</h1>
+            </div>
+            <nav class="admin-nav">
+                <button class="nav-item active" onclick="showSection('traders')">
+                    <i class="ph ph-users"></i>
+                    Трейдеры
+                </button>
+                <button class="nav-item" onclick="handleLogout()">
+                    <i class="ph ph-sign-out"></i>
+                    Выйти
+                </button>
+            </nav>
+        </aside>
+
+        <main class="admin-content">
+            <div class="content-header glass-effect">
+                <h2>Управление трейдерами</h2>
+                <button class="add-trader-btn" onclick="showAddTraderModal()">
+                    <i class="ph ph-plus-circle"></i>
+                    Добавить трейдера
+                </button>
+            </div>
+
+            <div class="traders-grid" id="tradersGrid">
+                <!-- Трейдеры будут добавлены через JavaScript -->
+            </div>
+        </main>
+    </div>
+
+    <!-- Модальное окно -->
+    <div id="traderModal" class="modal">
+        <div class="modal-content glass-effect">
+            <div class="modal-header">
+                <h2>Добавить трейдера</h2>
+                <button class="close-btn" onclick="closeModal()">
+                    <i class="ph ph-x"></i>
+                </button>
+            </div>
+            <form id="traderForm" onsubmit="handleTraderSubmit(event)">
+                <div class="form-grid">
+                    <div class="input-group">
+                        <label for="traderId">ID трейдера (для URL)</label>
+                        <input type="text" id="traderId" required placeholder="например: whyhate">
+                    </div>
+                    <div class="input-group">
+                        <label for="traderName">Имя трейдера</label>
+                        <input type="text" id="traderName" required placeholder="Отображаемое имя">
+                    </div>
+                    <div class="input-group">
+                        <label for="traderRating">Рейтинг</label>
+                        <input type="number" id="traderRating" min="0" max="5" step="0.1" required value="5.0">
+                    </div>
+                    <div class="input-group">
+                        <label for="successRate">Успешных сделок (%)</label>
+                        <input type="number" id="successRate" min="0" max="100" required value="98">
+                    </div>
+                    <div class="input-group">
+                        <label for="totalDeals">Всего сделок</label>
+                        <input type="number" id="totalDeals" required value="0">
+                    </div>
+                    <div class="input-group full-width">
+                        <label for="avatarUrl">URL аватарки</label>
+                        <div class="avatar-input-group">
+                            <input type="url" id="avatarUrl" placeholder="https://example.com/image.jpg">
+                            <div class="avatar-preview">
+                                <img id="avatarPreview" src="assets/default-avatar.png" alt="Preview">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="badges-group">
+                    <label>Бейджи:</label>
+                    <div class="checkbox-group">
+                        <label class="badge-checkbox verified">
+                            <input type="checkbox" id="verifiedBadge" checked>
+                            <i class="ph ph-shield-check"></i>
+                            Verified
+                        </label>
+                        <label class="badge-checkbox pro">
+                            <input type="checkbox" id="proBadge">
+                            <i class="ph ph-crown"></i>
+                            Pro Trader
+                        </label>
+                    </div>
+                </div>
+
+                <button type="submit" class="submit-btn">
+                    <i class="ph ph-check"></i>
+                    Сохранить
+                </button>
+            </form>
+
+            <div class="reviews-section">
+                <h3>Отзывы</h3>
+                <div class="reviews-list" id="reviewsList">
+                    <!-- Отзывы будут добавлены через JavaScript -->
+                </div>
+                <button type="button" class="add-review-btn" onclick="showAddReviewForm()">
+                    <i class="ph ph-plus"></i>
+                    Добавить отзыв
+                </button>
+            </div>
+
+            <!-- Форма добавления отзыва -->
+            <div id="reviewForm" class="review-form" style="display: none;">
+                <div class="input-group">
+                    <label for="reviewAuthor">Имя автора</label>
+                    <input type="text" id="reviewAuthor" required>
+                </div>
+                <div class="input-group">
+                    <label for="reviewRating">Оценка</label>
+                    <div class="rating-input">
+                        <input type="number" id="reviewRating" min="1" max="5" step="1" value="5" required>
+                        <div class="rating-stars">★★★★★</div>
+                    </div>
+                </div>
+                <div class="input-group">
+                    <label for="reviewText">Текст отзыва</label>
+                    <textarea id="reviewText" rows="3" required></textarea>
+                </div>
+                <div class="review-form-actions">
+                    <button type="button" class="cancel-btn" onclick="hideAddReviewForm()">Отмена</button>
+                    <button type="button" class="submit-btn" onclick="addReview()">Добавить отзыв</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Добавляем элемент уведомления -->
+    <div id="notification" class="notification">
+        <i class="ph ph-check-circle"></i>
+        <span>Изменения сохранены</span>
+    </div>
+
+    <style>
+        .admin-container {
+            display: flex;
+            min-height: 100vh;
+            background: var(--bg-primary);
+        }
+
+        .admin-sidebar {
+            width: 280px;
+            padding: 2rem;
+            background: rgba(17, 19, 23, 0.7);
+            border-right: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+        }
+
+        .admin-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .admin-header i {
+            font-size: 2rem;
+            color: #8B5CF6;
+        }
+
+        .admin-header h1 {
+            font-size: 1.25rem;
+            color: #8B5CF6;
+            font-weight: 600;
+        }
+
+        .nav-item {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.75rem 1rem;
+            border-radius: 8px;
+            background: none;
+            border: none;
+            color: var(--text-secondary);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+            font-size: 1rem;
+        }
+
+        .nav-item:hover, .nav-item.active {
+            background: rgba(139, 92, 246, 0.1);
+            color: #8B5CF6;
+        }
+
+        .admin-content {
+            flex: 1;
+            padding: 2rem;
+        }
+
+        .content-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem 2rem;
+            border-radius: 16px;
+            margin-bottom: 2rem;
+            background: rgba(17, 19, 23, 0.7);
+            backdrop-filter: blur(10px);
+        }
+
+        .content-header h2 {
+            color: #8B5CF6;
+            font-size: 1.5rem;
+        }
+
+        .add-trader-btn {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            background: #8B5CF6;
+            color: white;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1rem;
+        }
+
+        .add-trader-btn:hover {
+            background: #7C3AED;
+            transform: translateY(-2px);
+        }
+
+        .traders-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .trader-card {
+            padding: 1.5rem;
+            border-radius: 16px;
+            background: rgba(17, 19, 23, 0.7);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .trader-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .trader-avatar {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            overflow: hidden;
+            flex-shrink: 0;
+            border: 2px solid rgba(139, 92, 246, 0.3);
+        }
+
+        .trader-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .trader-info {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .trader-info h3 {
+            margin: 0;
+            font-size: 1.1rem;
+            color: var(--text-primary);
+            margin-bottom: 0.25rem;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .trader-actions {
+            display: flex;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+
+        .edit-btn, .delete-btn {
+            height: 38px;
+            padding: 0 1rem;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+        }
+
+        .edit-btn {
+            flex: 1;
+            background: rgba(139, 92, 246, 0.1);
+            color: #8B5CF6;
+            border: 1px solid rgba(139, 92, 246, 0.2);
+        }
+
+        .delete-btn {
+            width: 38px;
+            background: rgba(255, 71, 87, 0.1);
+            color: #ff4757;
+            border: 1px solid rgba(255, 71, 87, 0.2);
+        }
+
+        .edit-btn:hover {
+            background: rgba(139, 92, 246, 0.2);
+            transform: translateY(-2px);
+        }
+
+        .delete-btn:hover {
+            background: rgba(255, 71, 87, 0.2);
+            transform: translateY(-2px);
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(5px);
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+        }
+
+        .modal-content {
+            width: 100%;
+            max-width: 600px;
+            padding: 2rem;
+            border-radius: 16px;
+            background: rgba(17, 19, 23, 0.95);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            max-height: 90vh; /* Ограничиваем высоту */
+            overflow-y: auto; /* Добавляем прокрутку */
+            margin: 2rem; /* Добавляем отступы */
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+
+        .modal-header h2 {
+            color: #8B5CF6;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .input-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .input-group label {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        .input-group input {
+            padding: 0.75rem 1rem;
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--text-primary);
+            transition: all 0.3s ease;
+        }
+
+        .input-group input:focus {
+            outline: none;
+            border-color: #8B5CF6;
+            background: rgba(139, 92, 246, 0.1);
+        }
+
+        .badges-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .checkbox-group {
+            display: flex;
+            gap: 1rem;
+            margin-top: 0.5rem;
+        }
+
+        .badge-checkbox {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .badge-checkbox.verified {
+            background: rgba(46, 213, 115, 0.15);
+            color: #2ed573;
+        }
+
+        .badge-checkbox.pro {
+            background: rgba(255, 71, 87, 0.15);
+            color: #ff4757;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 1rem;
+            border-radius: 8px;
+            background: #8B5CF6;
+            color: white;
+            border: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1rem;
+        }
+
+        .submit-btn:hover {
+            background: #7C3AED;
+            transform: translateY(-2px);
+        }
+
+        .close-btn {
+            background: none;
+            border: none;
+            color: var(--text-secondary);
+            cursor: pointer;
+            font-size: 1.5rem;
+            padding: 0.5rem;
+            border-radius: 50%;
+            transition: all 0.3s ease;
+        }
+
+        .close-btn:hover {
+            background: rgba(255, 255, 255, 0.1);
+            color: #8B5CF6;
+        }
+
+        .full-width {
+            grid-column: 1 / -1;
+        }
+
+        .avatar-input-group {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .avatar-preview {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 2px solid #8B5CF6;
+            flex-shrink: 0;
+        }
+
+        .avatar-preview img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .reviews-section {
+            margin-top: 2rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .reviews-section h3 {
+            color: var(--text-primary);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .reviews-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            margin-bottom: 1rem;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+
+        .review-item {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 8px;
+            padding: 1rem;
+            position: relative;
+        }
+
+        .review-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.5rem;
+        }
+
+        .review-author {
+            font-weight: 500;
+            color: var(--text-primary);
+        }
+
+        .review-rating {
+            color: #FFD700;
+        }
+
+        .review-text {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            line-height: 1.4;
+        }
+
+        .delete-review {
+            position: absolute;
+            top: 0.5rem;
+            right: 0.5rem;
+            background: none;
+            border: none;
+            color: #ff4757;
+            cursor: pointer;
+            opacity: 0;
+            transition: opacity 0.2s;
+        }
+
+        .review-item:hover .delete-review {
+            opacity: 1;
+        }
+
+        .add-review-btn {
+            width: 100%;
+            padding: 0.75rem;
+            border-radius: 8px;
+            background: rgba(139, 92, 246, 0.1);
+            color: #8B5CF6;
+            border: 1px solid rgba(139, 92, 246, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-bottom: 1.5rem;
+        }
+
+        .add-review-btn:hover {
+            background: rgba(139, 92, 246, 0.2);
+        }
+
+        .review-form {
+            margin-top: 1rem;
+            padding: 1rem;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 8px;
+        }
+
+        .rating-input {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .rating-stars {
+            color: #FFD700;
+            font-size: 1.2rem;
+        }
+
+        .review-form-actions {
+            display: flex;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+
+        .cancel-btn {
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--text-secondary);
+            border: none;
+            cursor: pointer;
+        }
+
+        /* Стили для уведомления */
+        .notification {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            padding: 1rem 1.5rem;
+            border-radius: 8px;
+            background: rgba(139, 92, 246, 0.9);
+            color: white;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transform: translateY(150%);
+            transition: transform 0.3s ease;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+        }
+
+        .notification.show {
+            transform: translateY(0);
+        }
+
+        .notification i {
+            font-size: 1.25rem;
+        }
+    </style>
+
+    <script>
+        // Проверка авторизации
+        if (!localStorage.getItem('adminLoggedIn')) {
+            window.location.href = 'admin-login.html';
+        }
+
+        // Загрузка трейдеров при старте
+        let traders = JSON.parse(localStorage.getItem('traders')) || {
+            whyhate: {
+                id: 'whyhate',
+                name: "WhyHate",
+                rating: 4.9,
+                reviewsCount: 124,
+                successRate: "98",
+                totalDeals: 1234,
+                yearsOnPlatform: "2 года",
+                badges: ["verified", "pro"],
+            },
+            dimaarkhipov2007: {
+                id: 'dimaarkhipov2007',
+                name: "DimaArkhipov2007",
+                rating: 4.8,
+                reviewsCount: 89,
+                successRate: "95",
+                totalDeals: 856,
+                yearsOnPlatform: "1 год",
+                badges: ["verified"],
+            },
+            artemplugga: {
+                id: 'artemplugga',
+                name: "ArtemPlugga",
+                rating: 4.7,
+                reviewsCount: 76,
+                successRate: "92",
+                totalDeals: 647,
+                yearsOnPlatform: "1 год",
+                badges: ["verified", "pro"],
+            }
+        };
+
+        function loadTraders() {
+            const grid = document.getElementById('tradersGrid');
+            grid.innerHTML = '';
+
+            Object.values(traders).forEach(trader => {
+                grid.innerHTML += `
+                    <div class="trader-card">
+                        <div class="trader-header">
+                            <div class="trader-avatar">
+                                <img src="${trader.avatarUrl || `https://api.dicebear.com/7.x/initials/svg?seed=${trader.name}&backgroundColor=003049`}" 
+                                     alt="${trader.name}"
+                                     onerror="this.src='https://api.dicebear.com/7.x/initials/svg?seed=${trader.name}&backgroundColor=003049'">
+                            </div>
+                            <div class="trader-info">
+                                <h3>${trader.name}</h3>
+                                <div class="trader-rating">★ ${trader.rating}</div>
+                            </div>
+                        </div>
+                        <div class="trader-stats">
+                            <div>Успешных сделок: ${trader.successRate}%</div>
+                            <div>Всего сделок: ${trader.totalDeals}</div>
+                        </div>
+                        <div class="trader-badges">
+                            ${trader.badges.includes('verified') ? '<span class="badge verified"><i class="ph ph-shield-check"></i> Verified</span>' : ''}
+                            ${trader.badges.includes('pro') ? '<span class="badge pro"><i class="ph ph-crown"></i> Pro Trader</span>' : ''}
+                        </div>
+                        <div class="trader-actions">
+                            <button class="edit-btn" onclick="editTrader('${trader.id}')">
+                                <i class="ph ph-pencil-simple"></i>
+                                Редактировать
+                            </button>
+                            <button class="delete-btn" onclick="deleteTrader('${trader.id}')">
+                                <i class="ph ph-trash"></i>
+                            </button>
+                        </div>
+                    </div>
+                `;
+            });
+
+            updateMainSite();
+        }
+
+        function showAddTraderModal() {
+            document.getElementById('traderModal').style.display = 'flex';
+        }
+
+        function closeModal() {
+            document.getElementById('traderModal').style.display = 'none';
+            document.getElementById('traderForm').reset();
+            document.getElementById('traderId').disabled = false;
+            document.querySelector('.modal-header h2').textContent = 'Добавить трейдера';
+        }
+
+        let currentTrader = null;
+
+        function showAddReviewForm() {
+            document.getElementById('reviewForm').style.display = 'block';
+            document.querySelector('.add-review-btn').style.display = 'none';
+        }
+
+        function hideAddReviewForm() {
+            document.getElementById('reviewForm').style.display = 'none';
+            document.querySelector('.add-review-btn').style.display = 'flex';
+            // Сброс формы
+            document.getElementById('reviewAuthor').value = '';
+            document.getElementById('reviewRating').value = 5;
+            document.getElementById('reviewText').value = '';
+        }
+
+        function addReview() {
+            const author = document.getElementById('reviewAuthor').value;
+            const rating = document.getElementById('reviewRating').value;
+            const text = document.getElementById('reviewText').value;
+
+            if (!author || !rating || !text) {
+                alert('Пожалуйста, заполните все поля');
+                return;
+            }
+
+            const review = {
+                id: Date.now(),
+                author,
+                rating: Number(rating),
+                text,
+                date: new Date().toISOString()
+            };
+
+            // Инициализируем массив отзывов, если его нет
+            if (!traders[currentTrader].reviews) {
+                traders[currentTrader].reviews = [];
+            }
+
+            // Добавляем новый отзыв
+            traders[currentTrader].reviews.unshift(review);
+            
+            // Обновляем рейтинг и количество отзывов
+            updateTraderRating(currentTrader);
+            
+            // Сохраняем в localStorage
+            localStorage.setItem('traders', JSON.stringify(traders));
+            
+            // Обновляем отображение
+            displayReviews(currentTrader);
+            hideAddReviewForm();
+            
+            // Показываем уведомление
+            showNotification('Отзыв успешно добавлен');
+        }
+
+        function updateTraderRating(traderId) {
+            const trader = traders[traderId];
+            if (trader.reviews && trader.reviews.length > 0) {
+                // Вычисляем средний рейтинг
+                const avgRating = trader.reviews.reduce((sum, review) => sum + Number(review.rating), 0) / trader.reviews.length;
+                trader.rating = Math.round(avgRating * 10) / 10;
+                trader.reviewsCount = trader.reviews.length;
+            }
+        }
+
+        function deleteReview(traderId, reviewId) {
+            const trader = traders[traderId];
+            trader.reviews = trader.reviews.filter(review => review.id !== reviewId);
+            
+            // Обновляем общий рейтинг трейдера
+            updateTraderRating(traderId);
+            
+            // Обновляем отображение
+            displayReviews(traderId);
+            
+            // Сохраняем изменения
+            localStorage.setItem('traders', JSON.stringify(traders));
+            updateMainSite();
+            showNotification('Отзыв удален');
+        }
+
+        function displayReviews(traderId) {
+            const reviewsList = document.getElementById('reviewsList');
+            const trader = traders[traderId];
+            
+            if (!trader.reviews) trader.reviews = [];
+            
+            reviewsList.innerHTML = trader.reviews.map(review => `
+                <div class="review-item">
+                    <button class="delete-review" onclick="deleteReview('${traderId}', ${review.id})">
+                        <i class="ph ph-x"></i>
+                    </button>
+                    <div class="review-header">
+                        <div class="review-author-info">
+                            <span class="review-author">${review.author}</span>
+                            <span class="review-date">${new Date(review.date).toLocaleDateString()}</span>
+                        </div>
+                        <span class="review-rating">${'★'.repeat(review.rating)}${'☆'.repeat(5-review.rating)}</span>
+                    </div>
+                    <div class="review-text">${review.text}</div>
+                </div>
+            `).join('');
+        }
+
+        function editTrader(traderId) {
+            currentTrader = traderId;
+            const trader = traders[traderId];
+            
+            document.getElementById('traderId').value = trader.id;
+            document.getElementById('traderId').disabled = true;
+            document.getElementById('traderName').value = trader.name;
+            document.getElementById('traderRating').value = trader.rating;
+            document.getElementById('successRate').value = trader.successRate;
+            document.getElementById('totalDeals').value = trader.totalDeals;
+            document.getElementById('avatarUrl').value = trader.avatarUrl || '';
+            document.getElementById('avatarPreview').src = trader.avatarUrl || 'assets/default-avatar.png';
+            document.getElementById('verifiedBadge').checked = trader.badges.includes('verified');
+            document.getElementById('proBadge').checked = trader.badges.includes('pro');
+
+            // Отображаем отзывы
+            displayReviews(traderId);
+            
+            document.querySelector('.modal-header h2').textContent = 'Редактировать трейдера';
+            showAddTraderModal();
+        }
+
+        function handleTraderSubmit(event) {
+            event.preventDefault();
+            
+            const traderId = document.getElementById('traderId').value.toLowerCase();
+            const trader = {
+                id: traderId,
+                name: document.getElementById('traderName').value,
+                rating: parseFloat(document.getElementById('traderRating').value),
+                successRate: document.getElementById('successRate').value,
+                totalDeals: parseInt(document.getElementById('totalDeals').value),
+                avatarUrl: document.getElementById('avatarUrl').value,
+                reviewsCount: traders[traderId]?.reviewsCount || 0,
+                yearsOnPlatform: traders[traderId]?.yearsOnPlatform || "Новый",
+                badges: []
+            };
+
+            if (document.getElementById('verifiedBadge').checked) {
+                trader.badges.push('verified');
+            }
+            if (document.getElementById('proBadge').checked) {
+                trader.badges.push('pro');
+            }
+
+            traders[traderId] = trader;
+            localStorage.setItem('traders', JSON.stringify(traders));
+            
+            loadTraders();
+            closeModal();
+            showNotification('Трейдер успешно сохранен');
+        }
+
+        function updateMainSite() {
+            // Обновляем данные на странице трейдеров
+            const tradersData = JSON.stringify(traders);
+            localStorage.setItem('tradersData', tradersData);
+        }
+
+        function handleLogout() {
+            localStorage.removeItem('adminLoggedIn');
+            window.location.href = 'index.html';
+        }
+
+        // Предпросмотр аватарки
+        document.getElementById('avatarUrl').addEventListener('input', function(e) {
+            const preview = document.getElementById('avatarPreview');
+            const url = e.target.value;
+            
+            if (url) {
+                preview.src = url;
+            } else {
+                preview.src = 'assets/default-avatar.png';
+            }
+        });
+
+        // Обработка ошибок загрузки изображения
+        document.getElementById('avatarPreview').addEventListener('error', function(e) {
+            e.target.src = 'assets/default-avatar.png';
+        });
+
+        function deleteTrader(traderId) {
+            if (confirm(`Вы уверены, что хотите удалить трейдера ${traders[traderId].name}?`)) {
+                delete traders[traderId];
+                localStorage.setItem('traders', JSON.stringify(traders));
+                loadTraders();
+                showNotification('Трейдер удален');
+            }
+        }
+
+        // Функция показа уведомления
+        function showNotification(message = 'Изменения сохранены') {
+            const notification = document.getElementById('notification');
+            notification.querySelector('span').textContent = message;
+            notification.classList.add('show');
+            
+            setTimeout(() => {
+                notification.classList.remove('show');
+            }, 3000);
+        }
+
+        // Инициализация
+        loadTraders();
+    </script>
+</body>
+</html> 

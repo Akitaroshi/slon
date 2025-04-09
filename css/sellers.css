@@ -1,0 +1,488 @@
+.main {
+    padding: 2rem;
+    color: white;
+}
+
+.seller-item {
+    background: rgba(20, 20, 20, 0.8);
+    backdrop-filter: blur(10px);
+    border-radius: 16px;
+    padding: 1.75rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    transition: all 0.3s;
+    text-decoration: none;
+    color: inherit;
+}
+
+.seller-item:hover {
+    transform: translateY(-2px);
+    border-color: var(--accent-blue);
+    box-shadow: 0 8px 32px rgba(138, 43, 226, 0.1);
+}
+
+.seller-info {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+.seller-avatar {
+    width: 64px;
+    height: 64px;
+    border-radius: 16px;
+    background: rgba(0, 0, 0, 0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    color: var(--text-primary);
+    font-size: 1.5rem;
+    transition: all 0.3s ease;
+}
+
+.seller-item:hover .seller-avatar {
+    background: var(--accent-gradient);
+}
+
+.seller-details {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.seller-name {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.seller-stats {
+    display: flex;
+    gap: 1.25rem;
+    color: var(--text-secondary);
+    font-size: 0.95rem;
+}
+
+.seller-rating {
+    color: #FFD700;
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+}
+
+.seller-trades {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.seller-trades-icon {
+    opacity: 0.7;
+}
+
+.seller-limits {
+    padding: 0.75rem 1.5rem;
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 12px;
+    color: var(--text-secondary);
+    font-size: 0.95rem;
+    letter-spacing: 0.5px;
+    transition: all 0.3s ease;
+}
+
+.seller-item:hover .seller-limits {
+    background: var(--accent-gradient);
+    color: var(--text-primary);
+}
+
+.filters {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 2rem;
+    flex-wrap: wrap;
+}
+
+.filter-button {
+    padding: 0.75rem 1.5rem;
+    background: rgba(20, 20, 20, 0.8);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    color: var(--text-secondary);
+    cursor: pointer;
+    transition: all 0.3s;
+    font-weight: 500;
+}
+
+.filter-button:hover,
+.filter-button.active {
+    background: var(--accent-gradient);
+    color: var(--text-primary);
+    border-color: transparent;
+}
+
+.sort-select {
+    padding: 0.75rem 1.5rem;
+    background: rgba(20, 20, 20, 0.8);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    color: var(--text-secondary);
+    cursor: pointer;
+    transition: all 0.3s;
+    font-weight: 500;
+}
+
+.sort-select:hover {
+    border-color: var(--accent-blue);
+}
+
+.sort-select:focus {
+    outline: none;
+    border-color: var(--accent-blue);
+    box-shadow: 0 0 0 2px rgba(138, 43, 226, 0.2);
+}
+
+@media (max-width: 768px) {
+    .seller-item {
+        flex-direction: column;
+        gap: 1.5rem;
+        text-align: center;
+    }
+
+    .seller-info {
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    .seller-stats {
+        justify-content: center;
+    }
+
+    .seller-limits {
+        width: 100%;
+        text-align: center;
+    }
+
+    .filters {
+        justify-content: center;
+    }
+}
+
+.hero-section {
+    text-align: center;
+    padding: 4rem 2rem;
+    margin-bottom: 3rem;
+    background: rgba(20, 20, 20, 0.8);
+    backdrop-filter: blur(10px);
+    border-radius: 24px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.hero-section h1 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    background: var(--accent-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.hero-section p {
+    font-size: 1.1rem;
+    color: var(--text-secondary);
+    margin-bottom: 2rem;
+}
+
+.cta-button {
+    display: inline-block;
+    padding: 1rem 2rem;
+    background: var(--accent-gradient);
+    color: var(--text-primary);
+    text-decoration: none;
+    border-radius: 12px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border: none;
+    cursor: pointer;
+}
+
+.cta-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 32px rgba(138, 43, 226, 0.2);
+}
+
+@media (max-width: 768px) {
+    .hero-section {
+        padding: 3rem 1.5rem;
+    }
+
+    .hero-section h1 {
+        font-size: 2rem;
+    }
+
+    .hero-section p {
+        font-size: 1rem;
+    }
+}
+
+.market-stats {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.stat-item {
+    background: rgba(20, 20, 20, 0.6);
+    border-radius: 16px;
+    padding: 1.5rem 2rem;
+}
+
+.stat-item h3 {
+    color: #666;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+}
+
+.stat-value {
+    font-size: 2.5rem;
+    color: #4A9EFF;
+    font-weight: 500;
+}
+
+.sellers-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    margin-bottom: 3rem;
+}
+
+.seller-card {
+    position: relative;
+    padding: 2rem;
+    transition: transform 0.3s;
+}
+
+.seller-card:hover {
+    transform: translateY(-5px);
+}
+
+.seller-status {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    padding: 0.25rem 0.75rem;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 500;
+}
+
+.status-online {
+    background: rgba(34, 197, 94, 0.1);
+    color: #22c55e;
+}
+
+.status-offline {
+    background: rgba(255, 255, 255, 0.1);
+    color: var(--text-secondary);
+}
+
+.seller-info {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.seller-avatar {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: var(--accent-gradient);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    color: white;
+}
+
+.seller-details h3 {
+    font-size: 1.2rem;
+    margin-bottom: 0.25rem;
+    color: var(--text-primary);
+}
+
+.seller-details p {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+}
+
+.seller-stats {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.stat {
+    text-align: center;
+}
+
+.stat-label {
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+    margin-bottom: 0.25rem;
+}
+
+.stat-value {
+    font-size: 1.1rem;
+    font-weight: 600;
+    background: var(--accent-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.seller-actions {
+    display: flex;
+    gap: 1rem;
+}
+
+.action-button {
+    flex: 1;
+    padding: 0.75rem;
+    border: none;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.primary-action {
+    background: var(--accent-gradient);
+    color: white;
+}
+
+.secondary-action {
+    background: var(--bg-secondary);
+    color: var(--text-primary);
+    border: 1px solid var(--border-color);
+}
+
+.action-button:hover {
+    transform: translateY(-2px);
+}
+
+@media (max-width: 768px) {
+    .sellers-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+}
+
+.sellers-header {
+    text-align: center;
+    padding: 2rem 0 4rem;
+}
+
+.sellers-header h1 {
+    margin-bottom: 1rem;
+}
+
+.seller-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+}
+
+.seller-name {
+    font-size: 1.2rem;
+    color: white;
+    margin-bottom: 1rem;
+}
+
+.seller-rating {
+    color: #FFD700;
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+}
+
+.seller-trades {
+    color: #666;
+}
+
+.seller-limits {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.limit-badge {
+    background: #1a1a1a;
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    color: #666;
+    font-size: 0.9rem;
+}
+
+.seller-actions button,
+.seller-actions a.button {
+    flex: 1;
+    padding: 0.75rem 1.5rem;
+    font-size: 1rem;
+    font-weight: 500;
+    text-align: center;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    border: none;
+}
+
+.button--primary {
+    background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+    color: white;
+    box-shadow: 0 4px 15px rgba(76, 175, 80, 0.2);
+}
+
+.button--primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(76, 175, 80, 0.3);
+}
+
+.button--secondary {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: white;
+}
+
+.button--secondary:hover {
+    background: rgba(255, 255, 255, 0.15);
+    transform: translateY(-2px);
+}
+
+.seller-actions a {
+    display: block;
+    width: 100%;
+    padding: 0.75rem;
+    background: white;
+    border: none;
+    border-radius: 8px;
+    color: black;
+    font-size: 1rem;
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.seller-actions a:hover {
+    background: #f0f0f0;
+} 

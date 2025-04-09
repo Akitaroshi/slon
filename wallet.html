@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Кошелек - CryptoExchange</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.0.3/src/regular/style.css">
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/wallet.css">
+</head>
+<body>
+    <header class="header">
+        <nav class="nav">
+            <div class="nav-brand">
+                <a href="index.html">CryptoExchange</a>
+            </div>
+            <div class="nav-links">
+                <a href="index.html" class="nav-link">
+                    <i class="ph ph-house-simple"></i>
+                    <span>Главная</span>
+                </a>
+                <a href="sellers.html" class="nav-link">
+                    <i class="ph ph-users"></i>
+                    <span>Продавцы</span>
+                </a>
+                <a href="faq.html" class="nav-link">
+                    <i class="ph ph-question"></i>
+                    <span>FAQ</span>
+                </a>
+                <a href="wallet.html" class="nav-link active">
+                    <i class="ph ph-wallet"></i>
+                    <span>Кошелек</span>
+                </a>
+            </div>
+        </nav>
+    </header>
+
+    <main class="main">
+        <div class="hero-section">
+            <h1>Ваш кошелек</h1>
+            <p>Управляйте своими средствами и отслеживайте транзакции</p>
+        </div>
+
+        <div class="wallet-container">
+            <div class="wallet-balance">
+                <div class="balance-card glass-effect">
+                    <h2>Общий баланс</h2>
+                    <div class="balance-amount">₽ 0.00</div>
+                    <div class="balance-change positive">
+                        <i class="ph ph-trend-up"></i>
+                        <span>+0.00% за 24ч</span>
+                    </div>
+                </div>
+
+                <div class="balance-card glass-effect">
+                    <h2>BTC</h2>
+                    <div class="balance-amount">₽ 0.00</div>
+                    <div class="balance-change positive">
+                        <i class="ph ph-trend-up"></i>
+                        <span>+0.00% за 24ч</span>
+                    </div>
+                </div>
+
+                <div class="balance-card glass-effect">
+                    <h2>ETH</h2>
+                    <div class="balance-amount">₽ 0.00</div>
+                    <div class="balance-change positive">
+                        <i class="ph ph-trend-up"></i>
+                        <span>+0.00% за 24ч</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="wallet-actions">
+                <button class="action-button">
+                    <i class="ph ph-plus"></i>
+                    <span>Пополнить</span>
+                </button>
+                <button class="action-button">
+                    <i class="ph ph-arrow-right"></i>
+                    <span>Вывести</span>
+                </button>
+                <button class="action-button">
+                    <i class="ph ph-arrows-clockwise"></i>
+                    <span>Обменять</span>
+                </button>
+            </div>
+
+            <div class="transactions-history">
+                <h2>История транзакций</h2>
+                <div class="transactions-list">
+                    <div class="transaction-item">
+                        <div class="transaction-icon">
+                            <i class="ph ph-arrow-down-right"></i>
+                        </div>
+                        <div class="transaction-info">
+                            <div class="transaction-title">Покупка BTC</div>
+                            <div class="transaction-date">12.03.2024 15:30</div>
+                        </div>
+                        <div class="transaction-amount positive">
+                            +0.001 BTC
+                        </div>
+                    </div>
+
+                    <div class="transaction-item">
+                        <div class="transaction-icon">
+                            <i class="ph ph-arrow-up-left"></i>
+                        </div>
+                        <div class="transaction-info">
+                            <div class="transaction-title">Продажа ETH</div>
+                            <div class="transaction-date">10.03.2024 18:45</div>
+                        </div>
+                        <div class="transaction-amount negative">
+                            -0.05 ETH
+                        </div>
+                    </div>
+
+                    <div class="transaction-item">
+                        <div class="transaction-icon">
+                            <i class="ph ph-arrow-down-right"></i>
+                        </div>
+                        <div class="transaction-info">
+                            <div class="transaction-title">Пополнение</div>
+                            <div class="transaction-date">08.03.2024 12:15</div>
+                        </div>
+                        <div class="transaction-amount positive">
+                            +10,000 ₽
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html> 

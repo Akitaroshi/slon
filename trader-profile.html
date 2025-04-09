@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Профиль трейдера - CryptoExchange</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.0.3/src/regular/style.css">
+    <link rel="stylesheet" href="css/main.css">
+</head>
+<body>
+    <header class="header">
+        <nav class="nav">
+            <div class="nav-brand">
+                <a href="index.html">CryptoExchange</a>
+            </div>
+            <div class="nav-links">
+                <a href="index.html" class="nav-link">
+                    <i class="ph ph-house-simple"></i>
+                    <span>Главная</span>
+                </a>
+                <a href="traders.html" class="nav-link active">
+                    <i class="ph ph-users"></i>
+                    <span>Трейдеры</span>
+                </a>
+                <a href="faq.html" class="nav-link">
+                    <i class="ph ph-question"></i>
+                    <span>FAQ</span>
+                </a>
+            </div>
+        </nav>
+    </header>
+
+    <main class="main">
+        <div class="profile-container">
+            <div class="profile-header glass-effect">
+                <div class="profile-info">
+                    <div class="profile-avatar glass-effect">
+                        <div class="avatar-wrapper">
+                            <img src="assets/default-avatar.png" alt="WhyHate" 
+                                 onerror="this.src='https://api.dicebear.com/7.x/initials/svg?seed=WhyHate&backgroundColor=003049'" 
+                                 loading="lazy">
+                        </div>
+                    </div>
+                    <div class="profile-details">
+                        <h1 class="profile-name">WhyHate</h1>
+                        <div class="profile-rating">
+                            <div class="stars">★★★★★</div>
+                            <span class="rating-value">4.9</span>
+                            <span class="reviews-count">(124 отзыва)</span>
+                        </div>
+                        <div class="profile-badges">
+                            <span class="badge verified">
+                                <i class="ph ph-shield-check"></i>
+                                Verified
+                            </span>
+                            <span class="badge pro">
+                                <i class="ph ph-crown"></i>
+                                Pro Trader
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="profile-stats">
+                    <div class="stat-card glass-effect">
+                        <i class="ph ph-check-circle"></i>
+                        <div class="stat-value">98%</div>
+                        <div class="stat-label">Успешных сделок</div>
+                    </div>
+                    <div class="stat-card glass-effect">
+                        <i class="ph ph-currency-circle-dollar"></i>
+                        <div class="stat-value">1,234</div>
+                        <div class="stat-label">Всего сделок</div>
+                    </div>
+                    <div class="stat-card glass-effect">
+                        <i class="ph ph-clock"></i>
+                        <div class="stat-value">2 года</div>
+                        <div class="stat-label">На платформе</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="profile-content">
+                <div class="reviews-section glass-effect">
+                    <h2>
+                        <i class="ph ph-star"></i>
+                        Отзывы (<span id="reviewsCount">0</span>)
+                    </h2>
+                    <div class="reviews-list" id="reviewsList">
+                        <!-- Отзывы будут добавлены через JavaScript -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <style>
+        .profile-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .profile-header {
+            padding: 2rem;
+            border-radius: 16px;
+            margin-bottom: 2rem;
+        }
+
+        .profile-info {
+            display: flex;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .profile-avatar {
+            position: relative;
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background: var(--bg-secondary);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            padding: 3px; /* Создаем отступ для бордера */
+        }
+
+        .avatar-wrapper {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            overflow: hidden;
+            background: var(--bg-secondary);
+            position: relative;
+        }
+
+        .profile-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 50%;
+            display: block;
+            background: var(--bg-secondary);
+        }
+
+        .profile-details {
+            flex: 1;
+        }
+
+        .profile-name {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            color: var(--text-primary);
+        }
+
+        .profile-rating {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .stars {
+            color: #ffd700;
+            letter-spacing: 2px;
+        }
+
+        .rating-value {
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .reviews-count {
+            color: var(--text-secondary);
+        }
+
+        .profile-badges {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .badge {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            font-weight: 500;
+        }
+
+        .badge.verified {
+            background: rgba(46, 213, 115, 0.15);
+            color: #2ed573;
+        }
+
+        .badge.pro {
+            background: rgba(255, 71, 87, 0.15);
+            color: #ff4757;
+        }
+
+        .profile-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .stat-card {
+            padding: 1.5rem;
+            border-radius: 12px;
+            text-align: center;
+        }
+
+        .stat-card i {
+            font-size: 1.5rem;
+            color: var(--accent-color);
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-value {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 0.25rem;
+        }
+
+        .stat-label {
+            color: var(--text-secondary);
+        }
+
+        .reviews-section {
+            margin-top: 2rem;
+            padding: 2rem;
+            border-radius: 16px;
+        }
+
+        .reviews-list {
+            margin-top: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .review-item {
+            padding: 1.5rem;
+            border-radius: 12px;
+            background: rgba(17, 19, 23, 0.7);
+        }
+
+        .review-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .review-author {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .review-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 2px solid rgba(139, 92, 246, 0.3);
+        }
+
+        .review-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .author-info {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .author-name {
+            font-weight: 500;
+            color: var(--text-primary);
+        }
+
+        .review-date {
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+        }
+
+        .review-rating {
+            color: #FFD700;
+            font-size: 1.1rem;
+            letter-spacing: 2px;
+        }
+
+        .review-text {
+            color: var(--text-secondary);
+            line-height: 1.5;
+        }
+
+        .no-reviews {
+            text-align: center;
+            color: var(--text-secondary);
+            padding: 2rem;
+        }
+
+        @media (max-width: 768px) {
+            .profile-container {
+                padding: 1rem;
+            }
+
+            .profile-info {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .profile-avatar {
+                margin: 0 auto;
+            }
+
+            .profile-badges {
+                justify-content: center;
+            }
+
+            .profile-stats {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Добавляем плавное появление изображений */
+        img {
+            transition: opacity 0.3s ease;
+            opacity: 1;
+        }
+
+      
+
+        .review-avatar {
+            position: relative;
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            background: var(--bg-secondary);
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+            padding: 2px;
+        }
+
+        .review-avatar .avatar-wrapper {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            overflow: hidden;
+            background: var(--bg-secondary);
+        }
+
+        .review-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 50%;
+            display: block;
+        }
+
+        .review-author {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .author-info {
+            display: flex;
+            flex-direction: column;
+            gap: 0.25rem;
+        }
+
+        .author-name {
+            font-weight: 500;
+            color: var(--text-primary);
+            font-size: 0.95rem;
+        }
+
+        .review-date {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+        }
+    </style>
+
+    <script>
+    const urlParams = new URLSearchParams(window.location.search);
+    const traderId = urlParams.get('id');
+    
+    function updateTraderProfile() {
+        // Получаем актуальные данные из localStorage
+        const traders = JSON.parse(localStorage.getItem('traders')) || {};
+        const trader = traders[traderId];
+
+        if (!trader) {
+            window.location.href = 'traders.html';
+            return;
+        }
+
+        // Обновляем имя и основную информацию
+        document.title = `${trader.name} - Профиль трейдера`;
+        document.querySelector('.profile-name').textContent = trader.name;
+
+        // Обновляем рейтинг и количество отзывов
+        const reviewsCount = trader.reviews ? trader.reviews.length : 0;
+        document.querySelector('.rating-value').textContent = trader.rating;
+        document.querySelector('.reviews-count').textContent = `(${reviewsCount} ${getReviewsWord(reviewsCount)})`;
+
+        // Обновляем отзывы
+        const reviewsList = document.querySelector('.reviews-list');
+        if (reviewsList) {
+            if (trader.reviews && trader.reviews.length > 0) {
+                reviewsList.innerHTML = trader.reviews.map(review => `
+                    <div class="review-item glass-effect">
+                        <div class="review-header">
+                            <div class="review-author">
+                                <div class="review-avatar">
+                                    <img src="https://api.dicebear.com/7.x/initials/svg?seed=${review.author}" 
+                                         alt="${review.author}">
+                                </div>
+                                <div class="author-info">
+                                    <div class="author-name">${review.author}</div>
+                                    <div class="review-date">${formatDate(review.date)}</div>
+                                </div>
+                            </div>
+                            <div class="review-rating">${'★'.repeat(review.rating)}${'☆'.repeat(5-review.rating)}</div>
+                        </div>
+                        <div class="review-text">${review.text}</div>
+                    </div>
+                `).join('');
+
+                // Обновляем заголовок секции отзывов
+                document.querySelector('.reviews-section h2').innerHTML = `
+                    <i class="ph ph-star"></i>
+                    Отзывы (${reviewsCount})
+                `;
+            } else {
+                reviewsList.innerHTML = '<div class="no-reviews">Нет отзывов</div>';
+                document.querySelector('.reviews-section h2').innerHTML = `
+                    <i class="ph ph-star"></i>
+                    Отзывы (0)
+                `;
+            }
+        }
+
+        // Обновляем статистику
+        const stats = {
+            'success-rate': trader.successRate + '%',
+            'total-deals': trader.totalDeals,
+            'platform-time': trader.yearsOnPlatform
+        };
+
+        Object.entries(stats).forEach(([className, value]) => {
+            const element = document.querySelector(`.${className}`);
+            if (element) element.textContent = value;
+        });
+
+        // Обновляем аватарку
+        const avatarImg = document.querySelector('.profile-avatar img');
+        if (avatarImg) {
+            const avatarUrl = trader.avatarUrl && trader.avatarUrl.trim() !== '' 
+                ? trader.avatarUrl 
+                : `https://api.dicebear.com/7.x/initials/svg?seed=${trader.name}&backgroundColor=003049`;
+            avatarImg.src = avatarUrl;
+            avatarImg.onerror = () => {
+                avatarImg.src = `https://api.dicebear.com/7.x/initials/svg?seed=${trader.name}&backgroundColor=003049`;
+            };
+        }
+    }
+
+    // Функция для правильного склонения слова "отзыв"
+    function getReviewsWord(count) {
+        const cases = [2, 0, 1, 1, 1, 2];
+        const words = ['отзыв', 'отзыва', 'отзывов'];
+        return words[(count % 100 > 4 && count % 100 < 20) ? 2 : cases[(count % 10 < 5) ? count % 10 : 5]];
+    }
+
+    // Форматирование даты
+    function formatDate(dateString) {
+        const date = new Date(dateString);
+        return date.toLocaleDateString('ru-RU', {
+            day: 'numeric',
+            month: 'long',
+            year: 'numeric'
+        });
+    }
+
+    // Обновляем данные при загрузке и каждые 2 секунды
+    updateTraderProfile();
+    setInterval(updateTraderProfile, 2000);
+
+    // Слушаем изменения в localStorage
+    window.addEventListener('storage', updateTraderProfile);
+    </script>
+</body>
+</html>

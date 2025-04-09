@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Трейдеры - CryptoExchange</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.0.3/src/regular/style.css">
+    <link rel="stylesheet" href="css/main.css">
+</head>
+<body>
+    <header class="header">
+        <nav class="nav">
+            <div class="nav-brand">
+                <a href="index.html">CryptoExchange</a>
+            </div>
+            <div class="nav-links">
+                <a href="index.html" class="nav-link">
+                    <i class="ph ph-house-simple"></i>
+                    <span>Главная</span>
+                </a>
+                <a href="traders.html" class="nav-link active">
+                    <i class="ph ph-users"></i>
+                    <span>Трейдеры</span>
+                </a>
+                <a href="faq.html" class="nav-link">
+                    <i class="ph ph-question"></i>
+                    <span>FAQ</span>
+                </a>
+            </div>
+        </nav>
+    </header>
+
+    <main class="main">
+        <div class="traders-container">
+            <h1>Проверенные трейдеры</h1>
+            <div class="traders-grid">
+                <!-- Traders will be dynamically added here -->
+            </div>
+        </div>
+    </main>
+
+    <style>
+        .traders-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .traders-container h1 {
+            font-size: 2rem;
+            color: #8B5CF6;
+            margin-bottom: 2rem;
+        }
+
+        .traders-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .trader-card {
+            padding: 1.5rem;
+            border-radius: 16px;
+            background: rgba(17, 19, 23, 0.7);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: transform 0.2s ease;
+            cursor: pointer;
+        }
+
+        .trader-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .trader-header {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .trader-avatar {
+            position: relative;
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: rgba(17, 19, 23, 0.5);
+            padding: 3px;
+        }
+
+        .avatar-wrapper {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            overflow: hidden;
+            background: rgba(17, 19, 23, 0.5);
+        }
+
+        .trader-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 50%;
+            display: block;
+        }
+
+        .trader-main-info {
+            flex: 1;
+        }
+
+        .trader-name {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #8B5CF6;
+            margin-bottom: 0.5rem;
+        }
+
+        .trader-rating {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .stars {
+            color: #FFD700;
+            letter-spacing: 2px;
+        }
+
+        .rating-value {
+            color: #9CA3AF;
+            font-weight: 500;
+        }
+
+        .trader-stats {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .stat-box {
+            padding: 1rem;
+            background: rgba(17, 19, 23, 0.5);
+            border-radius: 12px;
+            text-align: center;
+        }
+
+        .stat-box i {
+            font-size: 1.5rem;
+            color: #8B5CF6;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-box .stat-value {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: #8B5CF6;
+            margin-bottom: 0.25rem;
+        }
+
+        .stat-box .stat-label {
+            font-size: 0.875rem;
+            color: #9CA3AF;
+        }
+
+        .trader-badges {
+            display: flex;
+            gap: 0.75rem;
+        }
+
+        .badge {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 0.75rem;
+            border-radius: 8px;
+            font-size: 0.875rem;
+            font-weight: 500;
+        }
+
+        .badge.verified {
+            background: rgba(46, 213, 115, 0.15);
+            color: #2ed573;
+        }
+
+        .badge.pro {
+            background: rgba(255, 71, 87, 0.15);
+            color: #ff4757;
+        }
+
+        .badge i {
+            font-size: 1.1rem;
+        }
+
+        @media (max-width: 768px) {
+            .traders-container {
+                padding: 1rem;
+            }
+
+            .trader-header {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .trader-main-info {
+                text-align: center;
+            }
+
+            .trader-rating {
+                justify-content: center;
+            }
+
+            .trader-badges {
+                justify-content: center;
+            }
+        }
+    </style>
+
+    <script>
+        function loadTraders() {
+            const traders = JSON.parse(localStorage.getItem('tradersData')) || {};
+            const grid = document.querySelector('.traders-grid');
+            grid.innerHTML = '';
+
+            Object.values(traders).forEach(trader => {
+                grid.innerHTML += `
+                    <div class="trader-card glass-effect" onclick="window.location.href='trader-profile.html?id=${trader.id}'">
+                        <div class="trader-header">
+                            <div class="trader-avatar">
+                                <div class="avatar-wrapper">
+                                    <img src="${trader.avatarUrl || `https://api.dicebear.com/7.x/initials/svg?seed=${trader.name}&backgroundColor=003049`}" 
+                                         alt="${trader.name}" 
+                                         onerror="this.src='https://api.dicebear.com/7.x/initials/svg?seed=${trader.name}&backgroundColor=003049'"
+                                         loading="lazy">
+                                </div>
+                            </div>
+                            <div class="trader-main-info">
+                                <h3 class="trader-name">${trader.name}</h3>
+                                <div class="trader-rating">
+                                    <div class="stars">★★★★★</div>
+                                    <span class="rating-value">${trader.rating}</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="trader-stats">
+                            <div class="stat-box">
+                                <i class="ph ph-check-circle"></i>
+                                <div class="stat-value">${trader.successRate}%</div>
+                                <div class="stat-label">Успешных сделок</div>
+                            </div>
+                            <div class="stat-box">
+                                <i class="ph ph-currency-circle-dollar"></i>
+                                <div class="stat-value">${trader.totalDeals}</div>
+                                <div class="stat-label">Всего сделок</div>
+                            </div>
+                        </div>
+
+                        <div class="trader-badges">
+                            ${trader.badges.includes('verified') ? 
+                                '<span class="badge verified"><i class="ph ph-shield-check"></i>Verified</span>' : ''}
+                            ${trader.badges.includes('pro') ? 
+                                '<span class="badge pro"><i class="ph ph-crown"></i>Pro Trader</span>' : ''}
+                        </div>
+                    </div>
+                `;
+            });
+        }
+
+        // Загружаем трейдеров при загрузке страницы
+        loadTraders();
+    </script>
+</body>
+</html> 
