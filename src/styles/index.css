@@ -1,0 +1,9 @@
+@import './vendor/reset.css';
+@import './components/seller-card.css';
+@import './components/reviews.css';
+@import './components/responsive.css';
+@import './components/header.css';
+@import './components/main.css';
+@import './components/footer.css'; 
+@import 'assets\css\modal.css/';
+@import 'assets\css\main.css/';

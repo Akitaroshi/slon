@@ -1,0 +1,646 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CryptoExchange</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.0.3/src/regular/style.css">
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/index.css">
+</head>
+<body>
+    <header class="header">
+        <nav class="nav">
+            <div class="nav-brand">
+                <a href="index.html">CryptoExchange</a>
+            </div>
+            <div class="nav-links">
+                <a href="index.html" class="nav-link">
+                    <i class="ph ph-house-simple"></i>
+                    <span>Главная</span>
+                </a>
+                <a href="traders.html" class="nav-link">
+                    <i class="ph ph-users"></i>
+                    <span>Трейдеры</span>
+                </a>
+                <a href="faq.html" class="nav-link">
+                    <i class="ph ph-question"></i>
+                    <span>FAQ</span>
+                </a>
+            </div>
+            <a href="admin-login.html" class="admin-login-btn">
+                <i class="ph ph-sign-in"></i>
+                Войти
+            </a>
+        </nav>
+    </header>
+
+    <div class="banner-section">
+        <div class="banner-container glass-effect">
+            <div class="banner-slide active">
+                <img src="1.webp" alt="Акция 1">
+                <div class="banner-content">
+                    <h2>Специальное предложение!</h2>
+                    <p>Обменяйте криптовалюту без комиссии до конца месяца</p>
+                    <a href="sellers.html" class="banner-button">Узнать больше</a>
+                </div>
+            </div>
+            <div class="banner-slide">
+                <img src="2.webp" alt="Акция 2">
+                <div class="banner-content">
+                    <h2>Новые возможности!</h2>
+                    <p>Теперь доступен вывод на карты любых банков</p>
+                    <a href="services.html" class="banner-button">Подробнее</a>
+                </div>
+            </div>
+            <div class="banner-slide">
+                <img src="3.webp" alt="Акция 3">
+                <div class="banner-content">
+                    <h2>Бонусная программа</h2>
+                    <p>Получайте кэшбэк до 1% за каждую операцию</p>
+                    <a href="faq.html" class="banner-button">Как получить?</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <main class="main">
+        <!-- <div class="video_section">
+            <img src="z.gif"></img>
+        </div> -->
+        <div class="about_section">
+            <div class="about-content">
+                <h1>О нас</h1>
+                <p>Мы предоставляем безопасную и удобную платформу для обмена криптовалют.
+                    Наша миссия - сделать процесс обмена криптовалют максимально простым и надежным
+                </p>
+                <a href="sellers.html" class="cta-button">Начать пользоваться</a>
+            </div>
+            <div class="video-demo-section">
+                <div class="video-container glass-effect">
+                    <video autoplay loop muted playsinline>
+                        <source src="assets/mobile-demo.mp4" type="video/mp4">
+                        Ваш браузер не поддерживает видео.
+                    </video>
+                </div>
+            </div>
+        </div>
+
+        <div class="card glass-card">
+            <div class="market-overview">
+                <div class="market-stats">
+                    <div class="stat-item glass-effect">
+                        <h3>Всего на платформе</h3>
+                        <div class="stat-value">$14.8B</div>
+                        <div class="stat-change">
+                            <span class="positive">↑</span>
+                            <span class="stat-details">+$2.3M за 24ч</span>
+                        </div>
+                    </div>
+                    <div class="stat-item glass-effect">
+                        <h3>Успешных сделок</h3>
+                        <div class="stat-value">892,481</div>
+                        <div class="stat-change">
+                            <span class="positive">⚡</span>
+                            <span class="stat-details">+2,305 сегодня</span>
+                        </div>
+                    </div>
+                    <div class="stat-item glass-effect">
+                        <h3>Средний объем</h3>
+                        <div class="stat-value">$45,750</div>
+                        <div class="stat-change">
+                            <span class="positive">📈</span>
+                            <span class="stat-details">На сделку</span>
+                        </div>
+                    </div>
+                    <div class="stat-item glass-effect">
+                        <h3>Активных трейдеров</h3>
+                        <div class="stat-value">13,492</div>
+                        <div class="stat-change">
+                            <span class="positive">👥</span>
+                            <span class="stat-details">Онлайн</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="charts-container">
+                <div class="chart-card glass-effect">
+                    <div class="chart-header">
+                        <div class="chart-title">
+                            <img src="https://cryptologos.cc/logos/bitcoin-btc-logo.png" alt="BTC" width="24">
+                            <h3>Bitcoin</h3>
+                            <span class="price">...</span>
+                            <span class="change">...</span>
+                        </div>
+                    </div>
+                    <div class="chart-wrapper">
+                        <canvas id="btcChart"></canvas>
+                    </div>
+                </div>
+
+                <div class="chart-card glass-effect">
+                    <div class="chart-header">
+                        <div class="chart-title">
+                            <img src="https://cryptologos.cc/logos/ethereum-eth-logo.png" alt="ETH" width="24">
+                            <h3>Ethereum</h3>
+                            <span class="price">...</span>
+                            <span class="change">...</span>
+                        </div>
+                    </div>
+                    <div class="chart-wrapper">
+                        <canvas id="ethChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="why-us-section">
+            <h1>Почему мы?</h1>
+            <div class="features-slider">
+                <div class="features-slide active">
+                    <div class="feature-card glass-effect">
+                        <div class="feature-icon">
+                            <i class="ph ph-shield-check"></i>
+                        </div>
+                        <h3>Безопасность</h3>
+                        <p>Все транзакции защищены современными протоколами шифрования. Мы используем многоуровневую систему безопасности и холодное хранение криптовалют.</p>
+                    </div>
+                    <div class="feature-card glass-effect">
+                        <div class="feature-icon">
+                            <i class="ph ph-lightning"></i>
+                        </div>
+                        <h3>Скорость</h3>
+                        <p>Мгновенные транзакции и автоматическая обработка обменов. Среднее время операции составляет менее 5 минут.</p>
+                    </div>
+                    <div class="feature-card glass-effect">
+                        <div class="feature-icon">
+                            <i class="ph ph-currency-circle-dollar"></i>
+                        </div>
+                        <h3>Выгодный курс</h3>
+                        <p>Мы предлагаем лучшие курсы обмена благодаря прямым интеграциям с крупнейшими биржами и высокой ликвидности.</p>
+                    </div>
+                </div>
+                <div class="features-slide">
+                    <div class="feature-card glass-effect">
+                        <div class="feature-icon">
+                            <i class="ph ph-headset"></i>
+                        </div>
+                        <h3>Поддержка 24/7</h3>
+                        <p>Наша служба поддержки работает круглосуточно и готова помочь вам с любыми вопросами на русском и английском языках.</p>
+                    </div>
+                    <div class="feature-card glass-effect">
+                        <div class="feature-icon">
+                            <i class="ph ph-chart-line-up"></i>
+                        </div>
+                        <h3>Прозрачность</h3>
+                        <p>Никаких скрытых комиссий. Все условия обмена всегда открыты и понятны каждому пользователю.</p>
+                    </div>
+                    <div class="feature-card glass-effect">
+                        <div class="feature-icon">
+                            <i class="ph ph-fingerprint"></i>
+                        </div>
+                        <h3>Анонимность</h3>
+                        <p>Мы не требуем верификацию для большинства операций и обеспечиваем полную конфиденциальность ваших данных.</p>
+                    </div>
+                </div>
+                <div class="features-controls">
+                    <button class="features-prev"><i class="ph ph-caret-left"></i></button>
+                    <div class="features-dots"></div>
+                    <button class="features-next"><i class="ph ph-caret-right"></i></button>
+                </div>
+            </div>
+        </div>
+
+        <div class="services-section">
+            <h1>Направления обмена</h1>
+            <div class="services-grid">
+                <div class="service-card glass-effect">
+                    <div class="service-icon">
+                        <i class="ph ph-credit-card"></i>
+                    </div>
+                    <h3>Вывод на карты</h3>
+                    <p>Быстрый вывод криптовалют на банковские карты Visa и Mastercard с минимальными комиссиями</p>
+                </div>
+                <div class="service-card glass-effect">
+                    <div class="service-icon">
+                        <i class="ph ph-shopping-cart"></i>
+                    </div>
+                    <h3>Оплата товаров</h3>
+                    <p>Покупка товаров в зарубежных интернет-магазинах с оплатой криптовалютой</p>
+                </div>
+                <div class="service-card glass-effect">
+                    <div class="service-icon">
+                        <i class="ph ph-game-controller"></i>
+                    </div>
+                    <h3>Игровые сервисы</h3>
+                    <p>Пополнение баланса в Steam, PlayStation Store, Xbox Live и других игровых платформах</p>
+                </div>
+                <div class="service-card glass-effect">
+                    <div class="service-icon">
+                        <i class="ph ph-globe"></i>
+                    </div>
+                    <h3>Международные платежи</h3>
+                    <p>Оплата зарубежных сервисов и подписок: Netflix, Spotify, YouTube Premium и других</p>
+                </div>
+            </div>
+            <a href="services.html" class="cta-button">Все сервисы</a>
+        </div>
+    </main>
+
+    <style>
+    .stats-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+        gap: 1.5rem;
+    }
+
+    .stat-item {
+        padding: 1.5rem;
+        background: var(--bg-secondary);
+        border-radius: 12px;
+        border: 1px solid var(--border-color);
+    }
+
+    .stat-item h3 {
+        color: var(--text-secondary);
+        font-size: 0.9rem;
+        margin-bottom: 0.5rem;
+    }
+
+    .stat-value {
+        font-size: 1.5rem;
+        font-weight: 600;
+        background: var(--accent-gradient);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+
+    .feature-icon {
+        font-size: 2.5rem;
+        margin-bottom: 1rem;
+        color: var(--accent-color);
+    }
+
+    .services-section {
+        padding: 4rem 2rem;
+        text-align: center;
+    }
+
+    .services-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 2rem;
+        margin: 3rem 0;
+    }
+
+    .service-card {
+        padding: 2rem;
+        text-align: center;
+        transition: transform 0.3s ease;
+    }
+
+    .service-card:hover {
+        transform: translateY(-5px);
+    }
+
+    .service-icon {
+        font-size: 2.5rem;
+        margin-bottom: 1rem;
+        color: var(--accent-color);
+    }
+
+    .service-card h3 {
+        margin: 1rem 0;
+        color: var(--text-primary);
+    }
+
+    .service-card p {
+        color: var(--text-secondary);
+        line-height: 1.6;
+    }
+
+    .about_section {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 2rem;
+        padding: 2rem;
+    }
+
+    .about-content {
+        flex: 1;
+    }
+
+    .video-demo-section {
+        position: sticky;
+        top: 2rem;
+        flex-shrink: 0;
+    }
+
+    .video-container {
+        width: 300px;
+        border-radius: 20px;
+        overflow: hidden;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    }
+
+    .video-container video {
+        width: 100%;
+        height: auto;
+        display: block;
+    }
+
+    @media (max-width: 768px) {
+        .about_section {
+            flex-direction: column;
+        }
+
+        .video-demo-section {
+            position: static;
+            width: 100%;
+        }
+
+        .video-container {
+            width: 100%;
+            max-width: 300px;
+            margin: 0 auto;
+        }
+    }
+
+    .admin-login-btn {
+        position: fixed;
+        top: 1rem;
+        right: 1rem;
+        padding: 0.5rem 1rem;
+        border-radius: 8px;
+        background: rgba(139, 92, 246, 0.1);
+        color: #8B5CF6;
+        border: 1px solid rgba(139, 92, 246, 0.2);
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        text-decoration: none;
+        z-index: 1000;
+    }
+
+    .admin-login-btn:hover {
+        background: rgba(139, 92, 246, 0.2);
+        transform: translateY(-2px);
+    }
+
+    .admin-login-btn i {
+        font-size: 1.1rem;
+    }
+
+    .banner-section {
+        padding: 1rem 2rem;
+        margin-bottom: 2rem;
+    }
+
+    .banner-container {
+        position: relative;
+        height: 500px;
+        border-radius: 20px;
+        overflow: hidden;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    }
+
+    .banner-slide {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        opacity: 0;
+        transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        transform: scale(1.05);
+    }
+
+    .banner-slide.active {
+        opacity: 1;
+        transform: scale(1);
+    }
+
+    .banner-slide img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center;
+    }
+
+    .banner-content {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        text-align: center;
+        color: white;
+        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+        padding: 2.5rem;
+        background: rgba(0, 0, 0, 0.4);
+        border-radius: 20px;
+        backdrop-filter: blur(10px);
+        width: 80%;
+        max-width: 600px;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .banner-content h2 {
+        font-size: 2.5rem;
+        margin-bottom: 1rem;
+        background: linear-gradient(45deg, #fff, #e0e0e0);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+
+    .banner-content p {
+        font-size: 1.2rem;
+        margin-bottom: 1.5rem;
+        line-height: 1.6;
+    }
+
+    .banner-button {
+        display: inline-block;
+        padding: 1rem 2rem;
+        background: var(--accent-gradient);
+        color: white;
+        text-decoration: none;
+        border-radius: 12px;
+        font-weight: 600;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        border: 2px solid rgba(255, 255, 255, 0.2);
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    .banner-button:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        border-color: rgba(255, 255, 255, 0.4);
+    }
+
+    @media (max-width: 768px) {
+        .banner-container {
+            height: 400px;
+        }
+
+        .banner-content h2 {
+            font-size: 1.8rem;
+        }
+
+        .banner-content p {
+            font-size: 1rem;
+        }
+    }
+
+    .why-us-section {
+        padding: 4rem 2rem;
+        text-align: center;
+    }
+
+    .features-slider {
+        position: relative;
+        margin: 3rem 0;
+        height: 500px;
+        overflow: hidden;
+        padding: 0 4rem;
+    }
+
+    .features-slide {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 2rem;
+        opacity: 0;
+        transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        transform: translateX(100%);
+        height: 100%;
+    }
+
+    .features-slide.active {
+        opacity: 1;
+        transform: translateX(0);
+    }
+
+    .feature-card {
+        padding: 2.5rem;
+        text-align: center;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        background: var(--bg-secondary);
+        border-radius: 20px;
+        border: 1px solid var(--border-color);
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        margin-bottom: 4rem;
+    }
+
+    .feature-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+    }
+
+    .feature-icon {
+        font-size: 3rem;
+        margin-bottom: 1.5rem;
+        color: var(--accent-color);
+        flex-shrink: 0;
+        background: var(--accent-gradient);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+
+    .feature-card h3 {
+        margin: 1rem 0;
+        color: var(--text-primary);
+        flex-shrink: 0;
+        font-size: 1.5rem;
+    }
+
+    .feature-card p {
+        color: var(--text-secondary);
+        line-height: 1.6;
+        flex-grow: 1;
+        margin-bottom: 1.5rem;
+    }
+
+    .features-controls {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 1.5rem;
+        position: absolute;
+        bottom: 1rem;
+        left: 0;
+        right: 0;
+        z-index: 2;
+        padding: 1rem 0;
+        background: linear-gradient(to bottom, transparent, rgba(0, 0, 0, 0.1));
+    }
+
+    .features-controls button {
+        background: var(--accent-gradient);
+        border: none;
+        color: white;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    .features-controls button:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+    }
+
+    .features-dots {
+        display: flex;
+        gap: 0.8rem;
+        padding: 0.5rem;
+        background: rgba(0, 0, 0, 0.1);
+        border-radius: 20px;
+    }
+
+    .features-dots span {
+        width: 10px;
+        height: 10px;
+        background: rgba(139, 92, 246, 0.2);
+        border-radius: 50%;
+        cursor: pointer;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .features-dots span.active {
+        background: var(--accent-gradient);
+        transform: scale(1.2);
+    }
+
+    @media (max-width: 768px) {
+        .features-slider {
+            height: 1200px;
+        }
+        
+        .features-slide {
+            grid-template-columns: 1fr;
+        }
+        
+        .feature-card {
+            margin-bottom: 2rem;
+        }
+    }
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
